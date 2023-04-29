@@ -13,3 +13,6 @@ def posteos(request):
 
 def sobreMi(request):
     return render(request, "about.html")
+
+
+
