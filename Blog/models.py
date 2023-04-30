@@ -19,4 +19,9 @@ class Posteos (models.Model):
     fecha=models.TimeField()
     texto=models.TextField()
 
+class Contacto (models.Model):
+    titulo=models.CharField(max_length=200)
+    subtitulo=models.CharField(max_length=200)
+
+
 
