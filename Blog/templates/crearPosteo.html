@@ -1,0 +1,75 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>Crear Posteo</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by
+                        <!-- <a href="#!">"{% 'autor' %}"</a> -->
+                        on August 24, 2023
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block segundo_titulo %}
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+<form action="" method="post"></form>
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="Agregar">
+</form>
+<table>
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>Titulo</th>
+        <th>Subtitulo</th>
+        <th>Autor</th>
+        <th>Fecha</th>
+        <th>Texto</th>
+    </tr>
+</thead>
+<tbody>
+    {% for profesor in profesores %}
+    <tr>
+        <td>
+            {{posteo.id}}
+        </td>
+        <td>
+            {{posteo.titulo}}
+        </td>
+        <td>
+            {{posteo.subtitulo}}
+        </td>
+        <td>
+            {{posteo.autor}}
+        </td>
+        <td>
+            {{posteo.fecha}}
+        </td>
+        <td>
+            {{posteo.texto}}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+{% block segundo_contenido_que_cambia %}
+{% endblock %}
