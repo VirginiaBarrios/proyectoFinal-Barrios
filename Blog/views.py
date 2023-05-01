@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .models import *
 from .forms import *
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
-from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
+from AppLogin import views
+from django.contrib.auth import login, logout, authenticate
 
 
 # Create your views here.

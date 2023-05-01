@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
     'Blog',
-
+    'AppLogin',
+    'AppMensajeria',
+    'AppRegistro',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ STATICFILES_DIRS = [STATIC_DIR,]
 LOGOUT_REDIRECT_URL = '/Blog/inicio/'
 
 LOGIN_URL = '/Blog/iniciarSesion/'
+
