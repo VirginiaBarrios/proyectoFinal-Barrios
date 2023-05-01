@@ -3,6 +3,9 @@ from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login, logout, authenticate
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -19,18 +22,14 @@ def imagenInicio(request):
 def contacto(request):
     return render(request, "contact.html")
 
+@login_required
 def posteos(request):
     return render(request, "post.html")
 
 def sobreMi(request):
     return render(request, "about.html")
 
-#def iniciarSesion(request):
-#    return render(request, "iniciarSesion.html")
-
-def registro(request):
-    return render(request, "registro.html")
-
+@login_required
 def crearPosteo(request):
     if request.method == "POST":
         form = PosteosForm(request.POST)
@@ -83,6 +82,9 @@ def registro(request):
     else:
         form=RegistroUsuarioForm()
         return render(request, "registro.html", {"form": form})
+
+
+
 
         
 
