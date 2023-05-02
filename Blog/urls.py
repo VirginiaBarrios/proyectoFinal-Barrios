@@ -14,4 +14,5 @@ urlpatterns = [
     path('crearPosteo/', crearPosteo, name="CrearPosteo"),
     path('finalizarSesion/', LogoutView.as_view(template_name='finalizarSesion.html'), name='FinalizarSesion')
     
+    
 ]

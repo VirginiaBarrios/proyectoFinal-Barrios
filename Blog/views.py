@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import *
-from .forms import *
+from .models import Posteos, SobreMi, Contacto
+from .forms import RegistroUsuarioForm,SobreMiForm, PosteoForm, RegistroUsuarioForm, ContactoForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
@@ -20,7 +20,20 @@ def imagenInicio(request):
 
 
 def contacto(request):
-    return render(request, "contact.html")
+    if request.method == "POST":
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            contacto = Estudiante()
+            contacto.nombre = form.cleaned_data['nombre']
+            contacto.apellido = form.cleaned_data['apellido']
+            contacto.email = form.cleaned_data['email']
+            contacto.save()
+            form = ContactoForm()
+    else:
+        form = ContactoForm
+    contacto = Contacto.objects.all() 
+    context = {"contacto": contacto, "form": form}
+    return render(request, "contact.html", context)
 
 @login_required
 def posteos(request):
@@ -44,9 +57,9 @@ def crearPosteo(request):
             form = PosteoForm()
     else:
         form = PosteoForm
-    posteos = Posteo.objects.all()
+    posteos = Posteos.objects.all()
     context = {"posteos": posteos, "form": form}
-    return render(request, "Blog/templates/post.html", context)
+    return render(request, "crearPosteo.html", context)
 
 #login logout register
 
@@ -82,6 +95,8 @@ def registro(request):
     else:
         form=RegistroUsuarioForm()
         return render(request, "registro.html", {"form": form})
+
+
 
 
 

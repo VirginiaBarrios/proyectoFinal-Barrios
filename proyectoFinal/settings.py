@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'AppLogin',
     'AppMensajeria',
     'AppRegistro',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
