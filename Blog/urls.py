@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import * 
 from AppLogin import urls
 from AppRegistro import urls
@@ -13,7 +13,9 @@ urlpatterns = [
     path('registro/', registro, name= "Registro"),
     path('iniciarSesion/', iniciarSesion, name= "IniciarSesion"),
     path('finalizarSesion/', LogoutView.as_view(template_name='finalizarSesion.html'), name='FinalizarSesion'),
-    path('editarPerfil/', editarPerfil, name='editarPerfil' ),
+    path('editarPerfil/', editarPerfil, name='editarPerfil'),
+    
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     
     
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Posteos (models.Model):
     subtitulo = models.CharField(max_length=200)
     autor = models.CharField(max_length=50)
     fecha = models.DateField()
-    texto = models.TextField(default='')
+    texto = RichTextField(default='')
     def __str__(self):
         return f"{self.titulo} - {self.subtitulo} - {self.autor} - {self.fecha} - {self.texto}"
 

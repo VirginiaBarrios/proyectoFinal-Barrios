@@ -37,7 +37,7 @@ def crearPosteo(request):
             posteo.titulo = form.cleaned_data['titulo']
             posteo.subtitulo = form.cleaned_data['subtitulo']
             posteo.autor = form.cleaned_data['autor']
-            posteo.fecha = form.cleaned_data['autor']
+            posteo.fecha = form.cleaned_data['fecha']
             posteo.texto = form.cleaned_data['texto']
             posteo.save()
             form = PosteoForm()
@@ -85,26 +85,27 @@ def iniciarSesion(request):
     
 
     #AppPerfiles
-    @login_required
-    def editarPerfil(request):
-        usuario=request.user
+@login_required
+def editarPerfil(request):
+    usuario=request.user
 
-        if request.method=="POST":
-            form=UserEditForm(request.POST)
-            if form.is_valid():
-                info=form.cleaned_data
-                usuario.email=info["email"]
-                usuario.password1=info["password1"]
-                usuario.password2=info["password2"]
-                usuario.first_name=info["first_name"]
-                usuario.last_name=info["last_name"]
-                usuario.save()
-                return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente."})
-            else:
-                return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+    if request.method=="POST":
+        form=UserEditForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            usuario.email=info["email"]
+            usuario.password1=info["password1"]
+            usuario.password2=info["password2"]
+            usuario.first_name=info["first_name"]
+            usuario.last_name=info["last_name"]
+            usuario.save()
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente."})
         else:
-            form=UserEditForm(instance=usuario)
             return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+    else:
+        form=UserEditForm(instance=usuario)
+        return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+
             
 
 

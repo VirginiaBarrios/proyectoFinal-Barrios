@@ -132,7 +132,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [STATIC_DIR,]
 
+MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
 LOGOUT_REDIRECT_URL = '/Blog/inicio/'
 
 LOGIN_URL = '/Blog/iniciarSesion/'
+
+
+
+
 
