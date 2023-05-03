@@ -1,12 +1,8 @@
 from django.shortcuts import render
-from .models import *
-from .forms import *
-from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
+from .forms import RegistroUsuarioForm
 
-# Create your views here.
 #login logout register
 
 def iniciarSesion(request):
@@ -41,4 +37,3 @@ def registro(request):
     else:
         form=RegistroUsuarioForm()
         return render(request, "registro.html", {"form": form})
-

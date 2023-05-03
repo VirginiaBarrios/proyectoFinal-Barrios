@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from .models import Posteos, SobreMi, Contacto
-from .forms import RegistroUsuarioForm,SobreMiForm, PosteoForm, RegistroUsuarioForm, ContactoForm
+from .models import Posteos, SobreMi
+from .forms import SobreMiForm, PosteoForm, ContactoForm, RegistroUsuarioForm
 from django.conf import settings
+from AppLogin import views
+from AppRegistro import views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
-from AppLogin import views
 from django.contrib.auth import login, logout, authenticate
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -13,27 +15,11 @@ from django.contrib.auth import login, logout, authenticate
 def inicio(request): 
     return render(request, "inicio.html")
 
-def imagenInicio(request):
-    # ...
-    context = {'C:/Users/virgi/Documents/CoderHouse/Curso Python/Proyecto Final Barrios/proyectoFinal/Blog/static/assets/img/home-bg.jpg'}
-    return render(request, 'inicio.html', context)
-
 
 def contacto(request):
-    if request.method == "POST":
-        form = ContactoForm(request.POST)
-        if form.is_valid():
-            contacto = Estudiante()
-            contacto.nombre = form.cleaned_data['nombre']
-            contacto.apellido = form.cleaned_data['apellido']
-            contacto.email = form.cleaned_data['email']
-            contacto.save()
-            form = ContactoForm()
-    else:
-        form = ContactoForm
-    contacto = Contacto.objects.all() 
-    context = {"contacto": contacto, "form": form}
-    return render(request, "contact.html", context)
+   
+    return render(request, "contact.html")
+
 
 @login_required
 def posteos(request):
@@ -60,8 +46,6 @@ def crearPosteo(request):
     posteos = Posteos.objects.all()
     context = {"posteos": posteos, "form": form}
     return render(request, "crearPosteo.html", context)
-
-#login logout register
 
 def iniciarSesion(request):
     if request.method=="POST":
@@ -95,12 +79,3 @@ def registro(request):
     else:
         form=RegistroUsuarioForm()
         return render(request, "registro.html", {"form": form})
-
-
-
-
-
-
-        
-
-

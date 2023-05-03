@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from Blog.views import *
 from AppLogin.views import *
+from AppRegistro.views import *
+from AppPerfiles.views import *
+from AppMensajeria.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
