@@ -11,9 +11,9 @@ urlpatterns = [
     path('sobreMi/', sobreMi, name="SobreMi"),
     path('crearPosteo/', crearPosteo, name="CrearPosteo"),
     path('registro/', registro, name= "Registro"),
-     path('iniciarSesion/', iniciarSesion, name= "IniciarSesion"),
-    path('finalizarSesion/', LogoutView.as_view(template_name='finalizarSesion.html'), name='FinalizarSesion')
-
+    path('iniciarSesion/', iniciarSesion, name= "IniciarSesion"),
+    path('finalizarSesion/', LogoutView.as_view(template_name='finalizarSesion.html'), name='FinalizarSesion'),
+    path('editarPerfil/', editarPerfil, name='editarPerfil' ),
     
     
 ]

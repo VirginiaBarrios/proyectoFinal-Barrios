@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Posteos, SobreMi
-from .forms import SobreMiForm, PosteoForm, ContactoForm, RegistroUsuarioForm
+from .forms import SobreMiForm, PosteoForm, ContactoForm, RegistroUsuarioForm, UserEditForm
 from django.conf import settings
 from AppLogin import views
 from AppRegistro import views
@@ -31,7 +31,7 @@ def sobreMi(request):
 @login_required
 def crearPosteo(request):
     if request.method == "POST":
-        form = PosteosForm(request.POST)
+        form = PosteoForm(request.POST)
         if form.is_valid():
             posteo = Posteo()
             posteo.titulo = form.cleaned_data['titulo']
@@ -82,3 +82,32 @@ def iniciarSesion(request):
     else:
         form=AuthenticationForm()
         return render(request,"iniciarSesion.html", {"form":form})
+    
+
+    #AppPerfiles
+    @login_required
+    def editarPerfil(request):
+        usuario=request.user
+
+        if request.method=="POST":
+            form=UserEditForm(request.POST)
+            if form.is_valid():
+                info=form.cleaned_data
+                usuario.email=info["email"]
+                usuario.password1=info["password1"]
+                usuario.password2=info["password2"]
+                usuario.first_name=info["first_name"]
+                usuario.last_name=info["last_name"]
+                usuario.save()
+                return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente."})
+            else:
+                return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+        else:
+            form=UserEditForm(instance=usuario)
+            return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+            
+
+
+
+
+

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Blog',
     'AppLogin',
     'AppMensajeria',
+    'AppPerfiles',
     'AppRegistro',
     'ckeditor'
 ]
