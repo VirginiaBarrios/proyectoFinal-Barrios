@@ -30,7 +30,7 @@ class ContactoForm(forms.Form):
 
 
 class RegistroUsuarioForm (UserCreationForm):
-    cddemail=forms.EmailField(label="Email usuario")
+    email=forms.EmailField(label="Email usuario")
     password1=forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2=forms.CharField(label="Confirmar contraseña ", widget=forms.PasswordInput)
 
