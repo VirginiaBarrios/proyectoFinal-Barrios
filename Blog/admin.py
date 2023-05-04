@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import SobreMi, Posteos, Contacto, Avatar
+
 # Register your models here.
 
 

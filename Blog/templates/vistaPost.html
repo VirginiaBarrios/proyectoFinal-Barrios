@@ -8,10 +8,10 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="post-heading">
-                    <h1>Crear Posteo</h1>
-                    <h2 class="subheading">¡El cielo es el limite!</h2>
+                    <h1>{{ titulo }}</h1>
+                    <h2 class="subheading">{{ subtitulo }}</h2>
                     <span class="meta">
-                        <a href="#!"></a>
+                        <a href="#!">{{ autor }} {{ fecha }}</a>
                     </span>
                 </div>
             </div>
@@ -23,23 +23,10 @@
 {% endblock %}
 
 {% block contenido_que_cambia %}
+<!-- Post Content-->
+{{ texto }}
 {% endblock %}
 
 {% block segundo_contenido_que_cambia %}
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        {{ form.media }}
-        <tr>
-            <td colspan="2"><input class="btn btn-primary text-uppercase enabled" type="submit" value="Agregar"></td>
-        </tr>
-    </table>
-</form>
-{% endblock %}
 
-{% block scripts %}
-<!-- CK Editor 5 -->
-{# Carga de archivos estáticos de CKEditor #}
-{{ form.media }}
 {% endblock %}

@@ -7,7 +7,6 @@ urlpatterns = [
     path('contacto/', contacto, name="Contacto"),
     path('posteos/', posteos, name="Posteos"),
     path('sobreMi/', sobreMi, name="SobreMi"),
-    path('crearPosteo/', crearPosteo, name="CrearPosteo"),
     
     path('AppLogin/', include ('AppLogin.urls')),
     path('AppRegistro/', include ('AppRegistro.urls')),
@@ -15,5 +14,5 @@ urlpatterns = [
     
     path('ckeditor/', include ('ckeditor_uploader.urls')),
     
-    
+    path('vistaPost/', vistaPost, name="vistaPost"),
 ]

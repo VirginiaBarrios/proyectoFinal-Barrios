@@ -4,7 +4,6 @@ from .forms import SobreMiForm, PosteoForm, ContactoForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-import os
 
 
 
@@ -24,22 +23,16 @@ def contacto(request):
     return render(request, "contact.html", {"avatar": obtenerAvatar(request)})
 
 
-@login_required
-def posteos(request):
-    return render(request, "post.html", {"avatar": obtenerAvatar(request)})
-
 
 def sobreMi(request):
     return render(request, "about.html", {"avatar": obtenerAvatar(request)})
 
 
 
-
-
 @login_required
-def crearPosteo(request):
+def posteos(request):
     if request.method == "POST":
-        form = PosteoForm(request.POST)
+        form = Posteos(request.POST)
         if form.is_valid():
             posteo = Posteos()
             posteo.titulo = form.cleaned_data['titulo']
@@ -52,8 +45,8 @@ def crearPosteo(request):
     else:
         form = PosteoForm
     posteos = Posteos.objects.all()
-    context = {"posteos": posteos, "form": form}
-    return render(request, "crearPosteo.html", context, {"avatar": obtenerAvatar(request)})
+    context = {"posteos": posteos, "form": form, "avatar": obtenerAvatar(request)}
+    return render(request, "post.html", context)
 
 
 
@@ -67,3 +60,10 @@ def obtenerAvatar(request):
         return avatares[0].imagen.url
     else:
         return "/media/avatares/default.png"
+
+
+
+
+def vistaPost(request):
+    vistaPost = Posteos.objects.first()  # obtiene el primer perfil
+    return render(request, 'vistaPost.html', {'vistaPost': vistaPost, "avatar": obtenerAvatar(request)})

@@ -13,7 +13,6 @@ from .models import MiPerfil
 
 def editarPerfil(request):
     usuario=request.user
-
     if request.method=="POST":
         form=UserEditForm(request.POST)
         if form.is_valid():
@@ -29,11 +28,10 @@ def editarPerfil(request):
             return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
     else:
         form=UserEditForm(instance=usuario)
-        return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username,"avatar": obtenerAvatar(request)})
+        return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username, "avatar": obtenerAvatar(request)})
 
 
 def miPerfil(request):
     miPerfil = MiPerfil.objects.first()  # obtiene el primer perfil
-    context = {'miPerfil': miPerfil}
-    return render(request, 'miPerfil.html', context, {"avatar": obtenerAvatar(request)})
+    return render(request, 'miPerfil.html', {'miPerfil': miPerfil, "avatar": obtenerAvatar(request)})
             

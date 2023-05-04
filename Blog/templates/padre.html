@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'Contacto' %}">Contacto</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'Posteos' %}">Posteos</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'editarPerfil' %}">Editar Perfil</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'miPerfil' %}">Mi Perfil</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'FinalizarSesion' %}">Finalizar Sesion</a></li>
                         <user class="username"><a style="margin-top: 20px; color: white;"><p>Bienvenido: {{ user.username }} </p></a></user>
                         <img src="{{ avatar }}" alt="Avatar" style="width:50px;height:50px;"/>
