@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import UserEditForm
+from Blog.views import obtenerAvatar
+from .models import MiPerfil
 # Create your views here.
 
 
@@ -27,6 +29,11 @@ def editarPerfil(request):
             return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
     else:
         form=UserEditForm(instance=usuario)
-        return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+        return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username,"avatar": obtenerAvatar(request)})
 
+
+def miPerfil(request):
+    miPerfil = MiPerfil.objects.first()  # obtiene el primer perfil
+    context = {'miPerfil': miPerfil}
+    return render(request, 'miPerfil.html', context, {"avatar": obtenerAvatar(request)})
             

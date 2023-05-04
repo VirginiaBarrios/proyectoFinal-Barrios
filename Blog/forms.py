@@ -1,5 +1,4 @@
-from .models import Posteos, SobreMi
-from AppLogin import forms
+from .models import Posteos, SobreMi, Contacto
 from django import forms
 from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget

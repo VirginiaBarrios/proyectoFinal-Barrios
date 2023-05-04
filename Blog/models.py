@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 
@@ -31,7 +32,6 @@ class Contacto(models.Model):
 
 
 class Avatar(models.Model):
-    imagen = models.ImageField(upload_to="avatars")
+    imagen = models.ImageField(upload_to="avatares")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='avatares', null=True, blank=True)
 
