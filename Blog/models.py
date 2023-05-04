@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -16,6 +17,8 @@ class Posteos(models.Model):
     fecha = models.DateField()
     texto = RichTextField()
     
+    def _str_(self):
+        return f"{self.titulo} - {self.subtitulo} - {self.autor} - {self.fecha} - {self.texto}"
 
 class Contacto(models.Model):
     nombre = models.CharField(max_length=50, default='')
@@ -27,6 +30,8 @@ class Contacto(models.Model):
         return f"{self.nombre} - {self.email} - {self.numero} - {self.mensaje}"
 
 
-
-
+class Avatar(models.Model):
+    imagen = models.ImageField(upload_to="avatars")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', null=True, blank=True)
 

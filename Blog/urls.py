@@ -1,8 +1,6 @@
 from django.urls import path, include
 from .views import * 
-from AppLogin import urls
-from AppRegistro import urls
-from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('inicio/', inicio, name="Inicio"),
@@ -10,12 +8,12 @@ urlpatterns = [
     path('posteos/', posteos, name="Posteos"),
     path('sobreMi/', sobreMi, name="SobreMi"),
     path('crearPosteo/', crearPosteo, name="CrearPosteo"),
-    path('registro/', registro, name= "Registro"),
-    path('iniciarSesion/', iniciarSesion, name= "IniciarSesion"),
-    path('finalizarSesion/', LogoutView.as_view(template_name='finalizarSesion.html'), name='FinalizarSesion'),
-    path('editarPerfil/', editarPerfil, name='editarPerfil'),
     
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('AppLogin/', include ('AppLogin.urls')),
+    path('AppRegistro/', include ('AppRegistro.urls')),
+    path('AppPerfiles/', include ('AppPerfiles.urls')),
+    
+    path('ckeditor/', include ('ckeditor_uploader.urls')),
     
     
 ]
