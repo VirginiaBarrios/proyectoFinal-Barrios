@@ -7,7 +7,7 @@ from AppRegistro import views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login, logout, authenticate
-from django.core.mail import send_mail
+
 
 
 # Create your views here.
@@ -33,7 +33,7 @@ def crearPosteo(request):
     if request.method == "POST":
         form = PosteoForm(request.POST)
         if form.is_valid():
-            posteo = Posteo()
+            posteo = Posteos()
             posteo.titulo = form.cleaned_data['titulo']
             posteo.subtitulo = form.cleaned_data['subtitulo']
             posteo.autor = form.cleaned_data['autor']

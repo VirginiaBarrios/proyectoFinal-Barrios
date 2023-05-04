@@ -30,6 +30,7 @@
     {% csrf_token %}
     <table>
         {{ form.as_table }}
+        {{ form.media }}
         <tr>
             <td colspan="2"><input class="btn btn-primary text-uppercase enabled" type="submit" value="Agregar"></td>
         </tr>
@@ -39,12 +40,6 @@
 
 {% block scripts %}
 <!-- CK Editor 5 -->
-<script type="text/javascript" src="{% static 'ckeditor.js' %}"></script>
-<script type="text/javascript">
-    ClassicEditor
-      .create( document.querySelector('#editor'))
-      .catch( error => {
-        console.error( error );
-      });
-</script>
+{# Carga de archivos estáticos de CKEditor #}
+{{ form.media }}
 {% endblock %}

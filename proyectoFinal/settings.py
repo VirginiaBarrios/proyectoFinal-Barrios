@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'AppMensajeria',
     'AppPerfiles',
     'AppRegistro',
-    'ckeditor'
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -138,7 +139,9 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': None,
+        'toolbar':'full',
+        'height':300,
+        'width':'100%', 
     },
 }
 

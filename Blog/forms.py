@@ -3,7 +3,7 @@ from AppLogin import forms
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
+from ckeditor.widgets import CKEditorWidget
 
 class SobreMiForm (forms.Form):
     titulo=forms.CharField(max_length=200)
@@ -11,12 +11,13 @@ class SobreMiForm (forms.Form):
     mensaje = forms.CharField(widget=forms.Textarea)
 
 
-class PosteoForm (forms.Form):
-    titulo=forms.CharField(max_length=200)
-    subtitulo=forms.CharField(max_length=200)
-    autor=forms.CharField(max_length=50)
-    fecha=forms.DateField()
-    texto = forms.CharField(widget=forms.Textarea)
+class PosteoForm(forms.Form):
+    titulo = forms.CharField(max_length=200)
+    subtitulo = forms.CharField(max_length=200)
+    autor = forms.CharField(max_length=50)
+    fecha = forms.DateField()
+    texto = forms.CharField(widget=CKEditorWidget())
+
 
 
 
