@@ -22,6 +22,7 @@ def editarPerfil(request):
             usuario.password2=info["password2"]
             usuario.first_name=info["first_name"]
             usuario.last_name=info["last_name"]
+            usuario.bio=info["bio"]
             usuario.save()
             return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente.", "avatar": obtenerAvatar(request)})
         else:

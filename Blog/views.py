@@ -9,8 +9,6 @@ from django.core.mail import send_mail
 
 # Create your views here.
 
-def inicio(request): 
-    return render(request, "inicio.html", {"avatar": obtenerAvatar(request)})
 
 
 def contacto(request):
@@ -49,14 +47,14 @@ def posteos(request):
 
 @login_required
 
-def vistaPost(request, posteo_id):
-    posteo = Posteos.objects.get(id=posteo_id)
+def vistaPost(request):
+    posteo = Posteos.objects.first()
     context = {'posteo': posteo, "avatar": obtenerAvatar(request)}
     return render(request, 'vistaPost.html', context)
 
 
 @login_required
-def mostrarPosteos(request):
+def inicio(request):
     posteos = Posteos.objects.all()
     context = {'posteos': posteos, "avatar": obtenerAvatar(request)}
     return render(request, 'mostrarPosteos.html', context)

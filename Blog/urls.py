@@ -15,6 +15,5 @@ urlpatterns = [
     path('ckeditor/', include ('ckeditor_uploader.urls')),
     
     path('vistaPost/', vistaPost, name="vistaPost"),
-    path('mostrarPosteos/', mostrarPosteos, name="mostrarPosteos"),
     path('agregarAvatar/', agregarAvatar, name="agregarAvatar"),
 ]

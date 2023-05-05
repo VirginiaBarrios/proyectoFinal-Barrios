@@ -9,6 +9,7 @@ class UserEditForm(UserCreationForm):
     password2= forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)
     first_name= forms.CharField(label="Modificiar nombre")
     last_name= forms.CharField(label="Modificar apellido")
+    bio= forms.CharField(label="Modificar biografía")
 
     class Meta:
         model=User

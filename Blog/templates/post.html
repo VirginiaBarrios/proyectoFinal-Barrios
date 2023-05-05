@@ -28,13 +28,15 @@
 {% block segundo_contenido_que_cambia %}
 <form action="" method="post">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        {{ form.media }}
-        <tr>
-            <td colspan="2"><input class="btn btn-primary text-uppercase enabled" type="submit" value="Agregar"></td>
-        </tr>
-    </table>
+    <div class="form-floating"></div>
+        <table>
+            {{ form.as_table }}
+            {{ form.media }}
+            <tr>
+                <td colspan="2"><input class="btn btn-primary text-uppercase enabled" type="submit" value="Agregar"></td>
+            </tr> 
+        </table>
+    </div>
 </form>
 {% endblock %}
 
