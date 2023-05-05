@@ -24,6 +24,11 @@ class ContactoForm(forms.Form):
     mensaje = forms.CharField(widget=forms.Textarea)
 
 
+class AvatarForm(forms.Form):
+    imagen = forms.ImageField(label="Imagen")
+
+
+
 
 
 

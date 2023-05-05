@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Posteos, SobreMi, Contacto, Avatar
-from .forms import SobreMiForm, PosteoForm, ContactoForm
+from .forms import SobreMiForm, PosteoForm, ContactoForm, AvatarForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -23,16 +23,15 @@ def contacto(request):
     return render(request, "contact.html", {"avatar": obtenerAvatar(request)})
 
 
-
 def sobreMi(request):
     return render(request, "about.html", {"avatar": obtenerAvatar(request)})
 
 
-
+#Posts
 @login_required
 def posteos(request):
     if request.method == "POST":
-        form = Posteos(request.POST)
+        form = PosteoForm(request.POST)
         if form.is_valid():
             posteo = Posteos()
             posteo.titulo = form.cleaned_data['titulo']
@@ -43,17 +42,30 @@ def posteos(request):
             posteo.save()
             form = PosteoForm()
     else:
-        form = PosteoForm
+        form = PosteoForm()
     posteos = Posteos.objects.all()
     context = {"posteos": posteos, "form": form, "avatar": obtenerAvatar(request)}
     return render(request, "post.html", context)
 
+@login_required
+
+def vistaPost(request, posteo_id):
+    posteo = Posteos.objects.get(id=posteo_id)
+    context = {'posteo': posteo, "avatar": obtenerAvatar(request)}
+    return render(request, 'vistaPost.html', context)
+
+
+@login_required
+def mostrarPosteos(request):
+    posteos = Posteos.objects.all()
+    context = {'posteos': posteos, "avatar": obtenerAvatar(request)}
+    return render(request, 'mostrarPosteos.html', context)
 
 
 
  
 #Imagenes de avatares
-
+@login_required
 def obtenerAvatar(request):
     avatares = Avatar.objects.filter(user=request.user.id)
     if len(avatares) != 0:
@@ -62,8 +74,24 @@ def obtenerAvatar(request):
         return "/media/avatares/default.png"
 
 
+@login_required
+def agregarAvatar(request):
+    if request.method=="POST":
+        form=AvatarForm(request.POST, request.FILES)
+        if form.is_valid():
+            avatar = Avatar.objects.filter(user=request.user)
+            avatarViejo=Avatar.objects.filter(user=request.user)
+            if len(avatarViejo)>0:
+                avatarViejo[0].delete()
+            avatar.save()
+            return render(request, "incio.html", {"mensaje": f"Avatar agregado correctamente"})
+        else:
+            return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "mensaje": "Error al agregar nuevo avatar"})
+    else:
+        form = AvatarForm()
+        return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "avatar": obtenerAvatar(request)})
+                
 
 
-def vistaPost(request):
-    vistaPost = Posteos.objects.first()  # obtiene el primer perfil
-    return render(request, 'vistaPost.html', {'vistaPost': vistaPost, "avatar": obtenerAvatar(request)})
+
+

@@ -23,9 +23,9 @@ def editarPerfil(request):
             usuario.first_name=info["first_name"]
             usuario.last_name=info["last_name"]
             usuario.save()
-            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente."})
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente.", "avatar": obtenerAvatar(request)})
         else:
-            return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username})
+            return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username, "avatar": obtenerAvatar(request)})
     else:
         form=UserEditForm(instance=usuario)
         return render(request, "editarPerfil.html", {"form": form, "nombreusuario": usuario.username, "avatar": obtenerAvatar(request)})
