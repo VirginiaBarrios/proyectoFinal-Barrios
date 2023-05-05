@@ -30,11 +30,12 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="form-floating">
                     <img src="{{ avatar }}" alt="avatar" width="150" height="150"/>
-                    <p>Nombre: {{ usuario.nombre }}</p>
-                    <p>Apellido: {{ usuario.apellido }}</p>
-                    <p>Email: {{ usuario.email }}</p>
-                    <p>Biografía: {{ usuario.bio }}</p>
-                    <li class="nav-item"><a class="btn btn-primary text-uppercase enabled" href="{% url 'editarPerfil' %}">Editar mi perfil</a></li>
+                    <p>Nombre: {{ request.user.first_name }}</p>
+                    <p>Apellido: {{ request.user.last_name }}</p>
+                    <p>Email: {{ request.user.email }}</p>
+                    <p>Biografía: {{ request.user.bio }}</p>
+                </div>
+                <a class="btn btn-primary text-uppercase enabled" href="{% url 'editarPerfil' %}">Editar mi perfil</a>
                 </div>
             </div>
         </div>

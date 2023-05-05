@@ -10,6 +10,12 @@ from django.core.mail import send_mail
 # Create your views here.
 
 
+def inicio(request):
+    posteos = Posteos.objects.all()
+    context = {'posteos': posteos, "avatar": obtenerAvatar(request)}
+    return render(request, 'inicio.html', context)
+
+
 
 def contacto(request):
     if request.method=="POST":
@@ -21,8 +27,10 @@ def contacto(request):
     return render(request, "contact.html", {"avatar": obtenerAvatar(request)})
 
 
+
 def sobreMi(request):
     return render(request, "about.html", {"avatar": obtenerAvatar(request)})
+
 
 
 #Posts
@@ -46,22 +54,27 @@ def posteos(request):
     return render(request, "post.html", context)
 
 @login_required
-
-def vistaPost(request):
-    posteo = Posteos.objects.first()
+def vistaPost(request, id):
+    posteo = Posteos.objects.get(id=id)
     context = {'posteo': posteo, "avatar": obtenerAvatar(request)}
     return render(request, 'vistaPost.html', context)
 
 
-@login_required
-def inicio(request):
-    posteos = Posteos.objects.all()
-    context = {'posteos': posteos, "avatar": obtenerAvatar(request)}
-    return render(request, 'mostrarPosteos.html', context)
+def buscarPost(request):
+    return render(request, "AppCoder/busquedaEstudiantes.html")
 
+def busquedaPosts(request):
+    autorIngresado = request.GET['autor']
+    if autorIngresado!="":
+        posteos = Posteos.objects.filter(autor__icontains=autorIngresado)
+        print(posteos)
+        return render(request, "AppCoder/resultadosBusquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
+    else:
+        return render(request, "AppCoder/busquedaPosts.html", {"mensaje": "Por favor ingrese un autor", "avatar": obtenerAvatar(request)})
 
-
+   
  
+
 #Imagenes de avatares
 @login_required
 def obtenerAvatar(request):
@@ -70,7 +83,6 @@ def obtenerAvatar(request):
         return avatares[0].imagen.url
     else:
         return "/media/avatares/default.png"
-
 
 @login_required
 def agregarAvatar(request):
@@ -81,8 +93,9 @@ def agregarAvatar(request):
             avatarViejo=Avatar.objects.filter(user=request.user)
             if len(avatarViejo)>0:
                 avatarViejo[0].delete()
+            avatar = Avatar(user=request.user, imagen=form.cleaned_data['imagen'])
             avatar.save()
-            return render(request, "incio.html", {"mensaje": f"Avatar agregado correctamente"})
+            return render(request, "inicio.html", {"mensaje": f"Avatar agregado correctamente"})
         else:
             return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "mensaje": "Error al agregar nuevo avatar"})
     else:
