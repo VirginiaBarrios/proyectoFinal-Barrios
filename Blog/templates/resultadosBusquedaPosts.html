@@ -1,0 +1,46 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block solo_inicio %}
+ <!-- Page Header-->
+ <header class="masthead" style="background-image: url('{% static "assets/img/crearPost-bg.jpg" %}')">
+       <div class="container position-relative px-4 px-lg-5">
+          <div class="row gx-4 gx-lg-5 justify-content-center">
+             <div class="col-md-10 col-lg-8 col-xl-7">
+                 <div class="site-heading">
+ 
+{% endblock %}
+
+{% block titulo %}
+    <h1>Blog</h1>
+{% endblock %}
+{% block segundo_titulo %}
+    <h1><span class="subheading">Proyecto de Blog - Curso de Python</span></h1>
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+{% endblock %}
+
+{% block segundo_contenido_que_cambia %}
+<!-- Post Content-->
+
+<table>
+    <thead>
+        <tr>
+        </tr>
+    </thead>
+    <tbody>
+        {% for posteo in posteos %}
+        <tr>
+            <td>
+                <a href="{% url 'vistaPost' posteo.id %}"><h2 class="post-title">{{ posteo.titulo }}</h2></a>
+                <p class="post-meta">
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

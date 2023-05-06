@@ -9,9 +9,9 @@ class UserEditForm(UserCreationForm):
     password2= forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)
     first_name= forms.CharField(label="Modificiar nombre")
     last_name= forms.CharField(label="Modificar apellido")
-    bio= forms.CharField(label="Modificar biografía")
+    bio= forms.CharField(label="Biografia", widget=forms.Textarea)
 
     class Meta:
         model=User
-        fields=["email","password1", "password2", "first_name", "last_name"]
+        fields=["email","password1", "password2", "first_name", "last_name", "bio"]
         help_texts = {k:"" for k in fields}

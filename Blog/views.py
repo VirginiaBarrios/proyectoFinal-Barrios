@@ -61,16 +61,16 @@ def vistaPost(request, id):
 
 
 def buscarPost(request):
-    return render(request, "AppCoder/busquedaEstudiantes.html")
+    return render(request, "busquedaPosts.html")
 
 def busquedaPosts(request):
     autorIngresado = request.GET['autor']
     if autorIngresado!="":
         posteos = Posteos.objects.filter(autor__icontains=autorIngresado)
         print(posteos)
-        return render(request, "AppCoder/resultadosBusquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
+        return render(request, "resultadosBusquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
     else:
-        return render(request, "AppCoder/busquedaPosts.html", {"mensaje": "Por favor ingrese un autor", "avatar": obtenerAvatar(request)})
+        return render(request, "busquedaPosts.html", {"mensaje": "Por favor ingrese un autor", "avatar": obtenerAvatar(request)})
 
    
  
