@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import UserEditForm
+from .forms import UserEditForm, AvatarForm
 from Blog.views import obtenerAvatar
-from .models import MiPerfil
+from .models import MiPerfil, Avatar
 # Create your views here.
 
 
@@ -36,3 +36,28 @@ def miPerfil(request):
     miPerfil = MiPerfil.objects.first()  # obtiene el primer perfil
     return render(request, 'miPerfil.html', {'miPerfil': miPerfil, "avatar": obtenerAvatar(request)})
             
+
+
+@login_required
+def agregarAvatar(request):
+    if request.method=="POST":
+        form=AvatarForm(request.POST, request.FILES)
+        if form.is_valid():
+            avatar = Avatar.objects.filter(user=request.user)
+            avatarViejo=Avatar.objects.filter(user=request.user)
+            if len(avatarViejo)>0:
+                avatarViejo[0].delete()
+            avatar = Avatar(user=request.user, imagen=form.cleaned_data['imagen'])
+            avatar.save()
+            return render(request, "inicio.html", {"mensaje": f"Avatar agregado correctamente", "avatar": obtenerAvatar(request)})
+        else:
+            return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "mensaje": "Error al agregar nuevo avatar", "avatar": obtenerAvatar(request)})
+    else:
+        form = AvatarForm()
+
+
+
+
+
+
+

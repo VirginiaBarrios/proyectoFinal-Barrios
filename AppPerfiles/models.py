@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django import forms
 
 # Create your models here.
 
@@ -13,3 +15,6 @@ class MiPerfil(models.Model):
         return f"{self.avatar} {self.nombre} {self.apellido} - {self.email} - {self.bio}"
 
 
+class Avatar(models.Model):
+    imagen = models.ImageField(upload_to="avatares")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import Posteos, SobreMi, Contacto, Avatar
-from .forms import SobreMiForm, PosteoForm, ContactoForm, AvatarForm
-from django.conf import settings
+from .models import Posteos, SobreMi, Contacto
+from .forms import SobreMiForm, PosteoForm, ContactoForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from AppPerfiles.models import Avatar
 
 
 
@@ -53,7 +53,7 @@ def posteos(request):
     context = {"posteos": posteos, "form": form, "avatar": obtenerAvatar(request)}
     return render(request, "post.html", context)
 
-@login_required
+
 def vistaPost(request, id):
     posteo = Posteos.objects.get(id=id)
     context = {'posteo': posteo, "avatar": obtenerAvatar(request)}
@@ -83,26 +83,6 @@ def obtenerAvatar(request):
         return avatares[0].imagen.url
     else:
         return "/media/avatares/default.png"
-
-@login_required
-def agregarAvatar(request):
-    if request.method=="POST":
-        form=AvatarForm(request.POST, request.FILES)
-        if form.is_valid():
-            avatar = Avatar.objects.filter(user=request.user)
-            avatarViejo=Avatar.objects.filter(user=request.user)
-            if len(avatarViejo)>0:
-                avatarViejo[0].delete()
-            avatar = Avatar(user=request.user, imagen=form.cleaned_data['imagen'])
-            avatar.save()
-            return render(request, "inicio.html", {"mensaje": f"Avatar agregado correctamente"})
-        else:
-            return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "mensaje": "Error al agregar nuevo avatar"})
-    else:
-        form = AvatarForm()
-        return render(request, "agregarAvatar.html", {"form": form, "usuario": request.user, "avatar": obtenerAvatar(request)})
-                
-
 
 
 

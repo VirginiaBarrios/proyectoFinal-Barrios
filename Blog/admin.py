@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SobreMi, Posteos, Contacto, Avatar
+from .models import SobreMi, Posteos, Contacto
 
 # Register your models here.
 
@@ -7,4 +7,3 @@ from .models import SobreMi, Posteos, Contacto, Avatar
 admin.site.register(SobreMi)
 admin.site.register(Posteos)
 admin.site.register(Contacto)
-admin.site.register(Avatar)

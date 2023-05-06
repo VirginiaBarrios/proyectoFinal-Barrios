@@ -31,7 +31,4 @@ class Contacto(models.Model):
         return f"{self.nombre} - {self.email} - {self.numero} - {self.mensaje}"
 
 
-class Avatar(models.Model):
-    imagen = models.ImageField(upload_to="avatares")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
