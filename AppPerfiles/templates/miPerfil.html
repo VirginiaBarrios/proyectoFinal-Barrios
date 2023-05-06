@@ -30,10 +30,10 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="form-floating">
                     <img src="{{ avatar }}" alt="avatar" width="150" height="150"/>
+                    <a class="btn btn-primary text-uppercase enabled" href="{% url 'agregarAvatar' %}">Agregar Avatar</a>
                     <p>Nombre: {{ request.user.first_name }}</p>
                     <p>Apellido: {{ request.user.last_name }}</p>
                     <p>Email: {{ request.user.email }}</p>
-                    <p>Biografía: {{ request.user.bio }}</p>
                 </div>
                 <a class="btn btn-primary text-uppercase enabled" href="{% url 'editarPerfil' %}">Editar mi perfil</a>
                 </div>

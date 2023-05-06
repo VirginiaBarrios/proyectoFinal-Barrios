@@ -27,17 +27,39 @@
 
 {% block segundo_contenido_que_cambia %}
 <h1>Formulario para crear tu post</h1>
+<h2>{{ mensaje }}</h2>
 <form action="" method="post">
     {% csrf_token %}
-    <div class="form-floating"></div>
-        <table>
-            {{ form.as_table }}
-            {{ form.media }}
+    <table>
+        <thead>
             <tr>
-                <td colspan="2"><input class="btn btn-primary text-uppercase enabled" type="submit" value="Agregar"></td>
-            </tr> 
-        </table>
-    </div>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Subtitulo</th>
+                <th>Autor</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for posteo in posteos %}
+            <tr>
+                <td>
+                    {{posteo.id}}
+                </td>
+                <td>
+                    {{posteo.titulo}}
+                </td>
+                <td>
+                    {{posteo.subtitulo}}
+                </td>
+                <td>
+                    {{posteo.autor}}
+                </td>
+                <td>
+                    {{posteo.fecha}}
+                </td>
+            </tr>
+            {% endfor %}
 </form>
 {% endblock %}
 

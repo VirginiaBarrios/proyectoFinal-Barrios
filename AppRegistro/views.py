@@ -15,3 +15,6 @@ def registro(request):
     else:
         form=RegistroUsuarioForm()
         return render(request, "registro.html", {"form": form, "avatar": obtenerAvatar(request)})
+    
+
+    

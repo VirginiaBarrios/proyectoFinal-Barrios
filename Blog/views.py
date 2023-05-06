@@ -71,8 +71,36 @@ def busquedaPosts(request):
         return render(request, "resultadosBusquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
     else:
         return render(request, "busquedaPosts.html", {"mensaje": "Por favor ingrese un autor", "avatar": obtenerAvatar(request)})
+    
 
-   
+
+
+@login_required
+def editarPost(request, post_titulo):
+    posteos = Posteos.objects.get(titulo=post_titulo)
+    if request.method == 'POST':
+        form = editarPost(request.POST)
+        print(form)
+        if form.is_valid(): 
+            info = form.cleaned_data
+            posteos.titulo = info['titulo']
+            posteos.subtitulo = info['subtitulo']
+            posteos.autor = info['autor']
+            posteos.fecha = info['fecha']
+            posteos.texto = info['texto']
+            posteos.save()
+            return render(request, "inicio.html")
+    else:
+        form = editarPost(initial={'titulo': posteos.titulo, 'subtitulo': posteos.subtitulo})
+    return render(request, "editarPost.html", {"form": form, "post_titulo": post_titulo})
+
+
+def eliminarPost(request, id):
+    posteos=Posteos.objects.get(id=id)
+    print(posteos)
+    posteos.delete()
+    posteos=Posteos.objects.all()
+    return render(request, "post.html", {"posteos": posteos, "mensaje":"Posteo eliminado correctamente"})
  
 
 #Imagenes de avatares

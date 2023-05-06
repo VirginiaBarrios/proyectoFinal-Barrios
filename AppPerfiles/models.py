@@ -10,9 +10,8 @@ class MiPerfil(models.Model):
     nombre = models.CharField(max_length=50, default='')
     apellido = models.CharField(max_length=50, default='')
     email = models.EmailField(default='example@example.com')
-    bio = models.TextField(max_length=100, default='')
     def __str__(self):
-        return f"{self.avatar} {self.nombre} {self.apellido} - {self.email} - {self.bio}"
+        return f"{self.avatar} {self.nombre} {self.apellido} - {self.email}"
 
 
 class Avatar(models.Model):
