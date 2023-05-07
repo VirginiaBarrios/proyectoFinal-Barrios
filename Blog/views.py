@@ -4,7 +4,7 @@ from .forms import PosteoForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from AppPerfiles.models import Avatar
-
+from proyectoFinal import settings
 
 
 # Create your views here.
