@@ -17,6 +17,6 @@ urlpatterns = [
     path('vistaPost/<int:id>', vistaPost, name="vistaPost"),
     path('buscarPost/', buscarPost, name="buscarPost"),
     path('busquedaPosts/', busquedaPosts, name="busquedaPosts"),
-    path('editarPost/<titulo>', editarPost, name="editarPost"),
+    path('editarPost/<id>', editarPost, name="editarPost"),
     path('eliminarPost/<id>', eliminarPost, name="eliminarPost"),
 ]

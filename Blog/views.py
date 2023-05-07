@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Posteos, SobreMi, Contacto
-from .forms import SobreMiForm, PosteoForm, ContactoForm
+from .models import Posteos
+from .forms import PosteoForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from AppPerfiles.models import Avatar
@@ -76,8 +76,8 @@ def busquedaPosts(request):
 
 
 @login_required
-def editarPost(request, post_titulo):
-    posteos = Posteos.objects.get(titulo=post_titulo)
+def editarPost(request, id):
+    posteos = Posteos.objects.get(id=id)
     if request.method == 'POST':
         form = editarPost(request.POST)
         print(form)
@@ -91,8 +91,8 @@ def editarPost(request, post_titulo):
             posteos.save()
             return render(request, "inicio.html")
     else:
-        form = editarPost(initial={'titulo': posteos.titulo, 'subtitulo': posteos.subtitulo})
-    return render(request, "editarPost.html", {"form": form, "post_titulo": post_titulo})
+        form = editarPost(initial={'titulo': posteos.titulo})
+    return render(request, "editarPost", {"form": form})
 
 
 def eliminarPost(request, id):
