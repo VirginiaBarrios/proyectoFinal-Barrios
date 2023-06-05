@@ -1,7 +1,6 @@
-from .models import Posteos, SobreMi, Contacto
 from django import forms
-from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
+from .models import Posteos
 
 class SobreMiForm (forms.Form):
     titulo=forms.CharField(max_length=200)
@@ -9,12 +8,12 @@ class SobreMiForm (forms.Form):
     mensaje = forms.CharField(widget=forms.Textarea)
 
 
-class PosteoForm(forms.Form):
-    titulo = forms.CharField(max_length=200)
-    subtitulo = forms.CharField(max_length=200)
-    autor = forms.CharField(max_length=50)
-    fecha = forms.DateField()
-    texto = forms.CharField(widget=CKEditorWidget())
+class PosteoForm(forms.ModelForm):
+    class Meta:
+        model = Posteos
+        fields = ['titulo', 'subtitulo', 'autor', 'fecha', 'texto']
+        widgets = {'texto': CKEditorWidget()}
+
 
 
 class ContactoForm(forms.Form):
@@ -23,6 +22,12 @@ class ContactoForm(forms.Form):
     numero = forms.IntegerField()
     mensaje = forms.CharField(widget=forms.Textarea)
 
+class EditarPostForm(forms.Form):
+    titulo = forms.CharField(max_length=200)
+    subtitulo = forms.CharField(max_length=200)
+    autor = forms.CharField(max_length=50)
+    fecha = forms.DateField()
+    texto = forms.CharField(widget=CKEditorWidget())
 
 
 

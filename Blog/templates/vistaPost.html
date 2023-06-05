@@ -13,6 +13,8 @@
                     <span class="meta">
                         <a href="#!">{{ posteo.autor }} {{ posteo.fecha }}</a>
                     </span>
+                    <a class="btn btn-primary text-uppercase enabled" href="{% url 'editarPost' posteo.id %}">Editar</a>
+                    <a class="btn btn-primary text-uppercase enabled" href="{% url 'eliminarPost' posteo.id %}">Eliminar</a>
                 </div>
             </div>
         </div>

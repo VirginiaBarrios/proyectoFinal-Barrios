@@ -3,20 +3,21 @@
 {% load static %}
 
 {% block titulo %}
-<header class="masthead" style="background-image: url('{% static "assets/img/post-bg.jpg" %}')">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="post-heading">
-                    <h1>Crear Posteo</h1>
-                    <h2 class="subheading">¡El cielo es el limite!</h2>
-                    <span class="meta">
-                        <a href="#!"></a>
-                    </span>
+    <header class="masthead" style="background-image: url('{% static "assets/img/post-bg.jpg" %}')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Editar Post</h1>
+                        <h2 class="subheading">¡El cielo es el límite!</h2>
+                        <span class="meta">
+                            <a href="#!"></a>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 {% endblock %}
 
 {% block segundo_titulo %}
@@ -26,34 +27,16 @@
 {% endblock %}
 
 {% block segundo_contenido_que_cambia %}
-<h1>Formulario para crear tu post</h1>
-<h2>{{ mensaje }}</h2>
-<form action="" method="post">
-    {% csrf_token %}
-    <div class="form-floating"></div>
-        <table>
-            <tbody>
-                {% for posteo in posteos %}
-                <!-- Divider-->
-            <hr class="my-4" />
-            <!-- Post preview-->
-            <div class="post-preview">
-                <a href="{% url 'vistaPost' posteo.id %}"><h2 class="post-title">{{ posteo.titulo }}</h2></a>
-                <p class="post-meta">
-                    Posted by {{ posteo.autor }} on {{ posteo.fecha }}
-                </p>
-            </div>  
-            <input class="btn btn-primary text-uppercase enabled" type="submit" value="Editar"></td>
-                {% endfor %}
-                <!-- Pager-->
-        </tbody>
-    </table>
-    </div>
-</form>
+    <h1>Formulario para editar tu post</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </form>
 {% endblock %}
 
 {% block scripts %}
-<!-- CK Editor 5 -->
-{# Carga de archivos estáticos de CKEditor #}
-{{ form.media }}
+    <!-- CK Editor 5 -->
+    {# Carga de archivos estáticos de CKEditor #}
+    "|safe":{{ form.media|safe }}
 {% endblock %}

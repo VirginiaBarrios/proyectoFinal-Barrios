@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from AppPerfiles.models import Avatar
 from proyectoFinal import settings
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 # Create your views here.
@@ -12,7 +14,10 @@ from proyectoFinal import settings
 
 def inicio(request):
     posteos = Posteos.objects.all()
-    context = {'posteos': posteos, "avatar": obtenerAvatar(request)}
+    paginator = Paginator(posteos, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posteos': posteos,'page_obj': page_obj, "avatar": obtenerAvatar(request)}
     return render(request, 'inicio.html', context)
 
 
@@ -53,15 +58,18 @@ def posteos(request):
     context = {"posteos": posteos, "form": form, "avatar": obtenerAvatar(request)}
     return render(request, "post.html", context)
 
-
+@login_required
 def vistaPost(request, id):
     posteo = Posteos.objects.get(id=id)
     context = {'posteo': posteo, "avatar": obtenerAvatar(request)}
-    return render(request, 'vistaPost.html', context)
+    if request.user.is_authenticated:
+        return render(request, 'vistaPost.html', context)
+    else:
+        return render(request, 'inicio.html', context, {"mensaje":"Inicia sesion para ver el contenido"} )
 
 
 def buscarPost(request):
-    return render(request, "busquedaPosts.html")
+    return render(request, "busquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
 
 def busquedaPosts(request):
     autorIngresado = request.GET['autor']
@@ -71,28 +79,21 @@ def busquedaPosts(request):
         return render(request, "resultadosBusquedaPosts.html", {"posteos": posteos, "avatar": obtenerAvatar(request)})
     else:
         return render(request, "busquedaPosts.html", {"mensaje": "Por favor ingrese un autor", "avatar": obtenerAvatar(request)})
-    
 
 
 
 @login_required
 def editarPost(request, id):
-    posteos = Posteos.objects.get(id=id)
+    posteos = get_object_or_404(Posteos, id=id)
     if request.method == 'POST':
-        form = editarPost(request.POST)
-        print(form)
+        form = PosteoForm(request.POST, instance=posteos)
         if form.is_valid(): 
-            info = form.cleaned_data
-            posteos.titulo = info['titulo']
-            posteos.subtitulo = info['subtitulo']
-            posteos.autor = info['autor']
-            posteos.fecha = info['fecha']
-            posteos.texto = info['texto']
-            posteos.save()
-            return render(request, "inicio.html")
+            form.save()
+            return redirect('Inicio')
     else:
-        form = editarPost(initial={'titulo': posteos.titulo})
-    return render(request, "editarPost", {"form": form})
+        form = PosteoForm(instance=posteos)
+    return render(request, 'editarPost.html', {'form': form})
+
 
 
 def eliminarPost(request, id):
@@ -100,7 +101,7 @@ def eliminarPost(request, id):
     print(posteos)
     posteos.delete()
     posteos=Posteos.objects.all()
-    return render(request, "post.html", {"posteos": posteos, "mensaje":"Posteo eliminado correctamente"})
+    return render(request, "post.html", {"posteos": posteos, "mensaje":"Post eliminado correctamente"})
  
 
 #Imagenes de avatares

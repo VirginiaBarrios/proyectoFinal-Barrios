@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserEditForm, AvatarForm
 from Blog.views import obtenerAvatar
 from .models import MiPerfil, Avatar
-from django.http import request
 
 # Create your views here.
 
